@@ -42,6 +42,24 @@ class Encode extends Component
         return $encodedString;
     }
 
+    public function encodeRot13Vue($string)
+    {
+        $rot13encryptedString = str_replace('"', '\"', str_rot13($string));
+
+        $uniqueId = uniqid('sproutencodeemail-', true);
+        $countId = $this->count++;
+        $ajaxId = Craft::$app->getRequest()->isAjax ? '-ajax' : '';
+
+        $encodeId = $uniqueId.'-'.$countId.$ajaxId;
+
+        $crypted = $this->encodeHtmlEntities($rot13encryptedString);
+
+
+        $encodedString = '<encode-email encodeId="'. $encodeId .'" encrypted="'. $crypted .'"></encode-email>';
+
+        return $encodedString;
+    }
+
     /**
      * Returns a string converted to html entities
      * http://goo.gl/LPhtJ

@@ -23,6 +23,7 @@ class TwigExtensions extends \Twig_Extension
     {
         return [
             new \Twig_SimpleFilter('encode', [$this, 'getEncode'], ['is_safe' => ['html']]),
+            new \Twig_SimpleFilter('encodeVue', [$this, 'getEncodeVue'], ['is_safe' => ['html']]),
             new \Twig_SimpleFilter('rot13', [$this, 'getRot13'], ['is_safe' => ['html']]),
             new \Twig_SimpleFilter('entities', [$this, 'getEntities'], ['is_safe' => ['html']])
         ];
@@ -39,6 +40,11 @@ class TwigExtensions extends \Twig_Extension
     public function getEncode($string)
     {
         return SproutEncodeEmail::$app->encode->encodeRot13($string);
+    }
+
+    public function getEncodeVue($string)
+    {
+        return SproutEncodeEmail::$app->encode->encodeRot13Vue($string);
     }
 
     /**
